@@ -27,9 +27,11 @@ contract MedicalCertificate is ERC721, ERC721Enumerable, ERC721URIStorage, Ownab
     }
     function listCertificatesIdOfAddress(address _address) external view returns(uint256[] memory certificateIds){
         uint256 numberOfCertificates = balanceOf(_address);
+        uint256[] memory ret = new uint256[](numberOfCertificates);
         for(uint256 i=0; i<numberOfCertificates; i++){
-            certificateIds[i] = tokenOfOwnerByIndex(_address, i);
+            ret[i] = tokenOfOwnerByIndex(_address, i);
         }
+        return ret;
     }
 
 

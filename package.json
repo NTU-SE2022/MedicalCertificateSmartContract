@@ -19,7 +19,8 @@
   "dependencies": {
     "erc721": "^5.2.0",
     "ganache": "^7.5.0",
-    "truffle": "^5.6.5"
+    "truffle": "^5.6.5",
+    "web3": "^1.8.1"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^4.8.0"
