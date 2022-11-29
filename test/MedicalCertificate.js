@@ -1,21 +1,3 @@
-// import “truffle/Assert.sol”; 
-// import “truffle/DeployedAddresses.sol”; 
-// import "../contracts/MedicalCertificate_ERC721.sol";
-// contract TestMC{
-//     MedicalCertificate mc = MedicalCertificate(DeployedAddresses.MedicalCertificate());
-//     function testAddCertificate() public{
-//         mc.addCertificate(“test”, address(this));
-//         Assert.equal(mc.getCertificate(0), “test”, “Certificate should be test”);
-//     }
-//     function testListCertificatesIdOfAddress() public{
-//         mc.addCertificate(“1”, address(this));
-//         mc.addCertificate(“2”, address(this));
-//         uint256[] memory certificateIds = mc.listCertificatesIdOfAddress(address(this));
-//         Assert.equal(certificateIds[0], 0, “Certificate id should be 0”);
-//         Assert.equal(certificateIds[0], 1, “Certificate id should be 0”);
-//     }
-// }
-
 const MC = artifacts.require("MedicalCertificate");
 contract("MedicalCertificate", accounts => {
   var contractOwner = accounts[0];
