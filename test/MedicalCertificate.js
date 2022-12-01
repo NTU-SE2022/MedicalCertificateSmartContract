@@ -10,23 +10,25 @@ contract("MedicalCertificate", accounts => {
       await MCinstance.listCertificatesIdOfAddress.call(accountA)
     ).length;
     assert.equal(numberOfCertificates, 0, "balance isn't 0 in the begining");
-    await MCinstance.addCertificate("test",accountA, {from: contractOwner})
+    await MCinstance.addCertificate("headache", "HIGH",accountA, {from: contractOwner})
     numberOfCertificates = (
       await MCinstance.listCertificatesIdOfAddress.call(accountA)
     ).length;
     assert.equal(numberOfCertificates, 1, "Certificate didn't send to account");
   });
 
-  it("NFT should contain desired texts(i.e. addCertificate and getCertificate O.K.)", async () => {
+  it("NFT should contain desired texts", async () => {
     const MCinstance = await MC.deployed();
-    var certificateText = await MCinstance.getCertificate.call(0)
-    assert.equal(certificateText, "test", "Certificate didn't contain desired text");
+    var symptomsText = await MCinstance.getSymptoms.call(0)
+    assert.equal(symptomsText, "headache", "Certificate didn't contain desired text");
+    var levelsText = await MCinstance.getLevels.call(0)
+    assert.equal(levelsText, "HIGH", "Certificate didn't contain desired text");
   });
 
   it("listCertificate OK", async () => {
     const MCinstance = await MC.deployed();
-    await MCinstance.addCertificate("t1",accountB, {from: contractOwner})
-    await MCinstance.addCertificate("t2",accountA, {from: contractOwner})
+    await MCinstance.addCertificate("t1","H",accountB, {from: contractOwner})
+    await MCinstance.addCertificate("t2","H",accountA, {from: contractOwner})
     // await MCinstance.addCertificate("test",accountA, {from: contractOwner})
     var certificateList = (await MCinstance.listCertificatesIdOfAddress.call(accountA));
     assert.equal(certificateList.length, 2, "Number of certificate is wrong");

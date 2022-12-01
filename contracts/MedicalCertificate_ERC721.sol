@@ -3,7 +3,7 @@
 // import "./ERC721.sol";
 // // from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
 // import "./Ownable.sol";
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
@@ -13,17 +13,22 @@ import "./I_MedicalCertificate.sol";
 contract MedicalCertificate is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, I_MedicalCertificate{
     using Counters for Counters.Counter;
     Counters.Counter private _idCounter;
-    
+    mapping (uint256 => string) private symptomsStorage;
+    mapping (uint256 => string) private levelsStorage;
+ 
     constructor() ERC721("MedicalCertificate", "MC") {}
-
-    function addCertificate(string memory certificate, address patient) external{
+    function addCertificate(string calldata symptoms, string calldata levels, address patient) external{
         uint256 id = _idCounter.current();
         _idCounter.increment();
         _safeMint(patient, id);
-        _setTokenURI(id, certificate);
+        symptomsStorage[id] = symptoms;
+        levelsStorage[id] = levels;
     }
-    function getCertificate(uint256 id) external view returns(string memory certificate){
-        return tokenURI(id);
+    function getSymptoms(uint256 id) external view returns(string memory symptoms){
+        return symptomsStorage[id];
+    }
+    function getLevels(uint256 id) external view returns(string memory levels){
+        return levelsStorage[id];
     }
     function listCertificatesIdOfAddress(address _address) external view returns(uint256[] memory certificateIds){
         uint256 numberOfCertificates = balanceOf(_address);
