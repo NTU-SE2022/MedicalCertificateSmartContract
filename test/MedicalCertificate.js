@@ -35,5 +35,12 @@ contract("MedicalCertificate", accounts => {
     assert.equal(certificateList[0], 0, "the first id is wrong");
     assert.equal(certificateList[1], 2, "the second id is wrong");
   });
+  it("For those who didn't get NFT, listCertificatesIdOfAddress should return empty list", async () => {
+    const MCinstance = await MC.deployed();
+    var numberOfCertificates = (
+      await MCinstance.listCertificatesIdOfAddress.call(accounts[3])
+    ).length;
+    assert.equal(numberOfCertificates, 0, "Balance isn't 0!");
+  });
 
 });
