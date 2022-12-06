@@ -69,9 +69,9 @@ module.exports = {
 
   networks: {
     SWE:{
-      // provider: () => new PrivateKeyProvider(priKey, "18.179.197.23"),
-      host: "18.179.197.23",
-      port: 7000,
+      provider: () => new PrivateKeyProvider(priKey, "http://18.179.197.23:7000"),
+      // host: "18.179.197.23",
+      // port: 7000,
       network_id :"*"
     }
     // Useful for testing. The `development` name is special - truffle uses it by default
