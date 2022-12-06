@@ -45,6 +45,16 @@
 // const { MNEMONIC, PROJECT_ID } = process.env;
 
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
+const yargs = require('yargs');
+var provider, address;
+//const HDWalletProvider = require("truffle-hdwallet-provider-privkey");
+const fromHexString = (hexString) =>
+  Uint8Array.from(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
+
+
+const priKey = "e859a9a4a72d769160616b4f9a94c9f225e3afde7b45a77f885a768c33ac8409"
+
+const PrivateKeyProvider = require("truffle-privatekey-provider");
 
 module.exports = {
   /**
@@ -58,6 +68,12 @@ module.exports = {
    */
 
   networks: {
+    SWE:{
+      // provider: () => new PrivateKeyProvider(priKey, "18.179.197.23"),
+      host: "18.179.197.23",
+      port: 7000,
+      network_id :"*"
+    }
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache, geth, or parity) in a separate terminal

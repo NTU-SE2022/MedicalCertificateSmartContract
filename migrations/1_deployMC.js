@@ -1,5 +1,7 @@
 var MCcontract = artifacts.require("MedicalCertificate");
 module.exports = function(deployer) {
   // deployment steps
-  deployer.deploy(MCcontract);
+  deployer.deploy(MCcontract, 
+    { from: accounts[18] }
+  )
 };
