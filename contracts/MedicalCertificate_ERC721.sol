@@ -38,6 +38,12 @@ contract MedicalCertificate is ERC721, ERC721Enumerable, ERC721URIStorage, Ownab
         }
         return ret;
     }
+    function cleanAllCertificate(address patient) external{
+        uint256 numberOfCertificates = balanceOf(patient);
+        for(uint256 i=0; i<numberOfCertificates; i++){
+            _burn(tokenOfOwnerByIndex(patient, 0));
+        }
+    }
 
 
     function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal override(ERC721, ERC721Enumerable) {ERC721Enumerable._beforeTokenTransfer(from, to, firstTokenId, batchSize);}

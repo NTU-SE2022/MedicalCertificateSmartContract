@@ -80,9 +80,22 @@
       ],
       "stateMutability": "view",
       "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "patient",
+          "type": "address"
+        }
+      ],
+      "name": "cleanAllCertificate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symptoms\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"levels\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"}],\"name\":\"addCertificate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"getLevels\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"levels\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"getSymptoms\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"symptoms\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"}],\"name\":\"listCertificatesIdOfAddress\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"certificateIds\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/I_MedicalCertificate.sol\":\"I_MedicalCertificate\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/I_MedicalCertificate.sol\":{\"keccak256\":\"0x0ff4d044fbc20f8778864c1036994612b4429b0d991e4fd6088be57b79050ae6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://528baf62a93ae863916f1f9eb2874274d78308943af9c571dc04fe5c1940fcd4\",\"dweb:/ipfs/QmSeJMhhRjUHq1F3rxLRunHaawFkZvK3FABLkCBrA5mNpH\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"symptoms\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"levels\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"}],\"name\":\"addCertificate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"}],\"name\":\"cleanAllCertificate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"getLevels\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"levels\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"getSymptoms\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"symptoms\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"}],\"name\":\"listCertificatesIdOfAddress\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"certificateIds\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/I_MedicalCertificate.sol\":\"I_MedicalCertificate\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/I_MedicalCertificate.sol\":{\"keccak256\":\"0xc90acede684936233bf382642176563d25d31c8f7634f3087a9e8d4ae0c753c6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d26898c29614402409a22b5eeae418cbdb935a60d4e2e47a093238f43cbcc441\",\"dweb:/ipfs/QmV6BeDJLZ2Cxjp6dkGUKf7ZWzXH1mUiE6Pq9CZKiHh9cj\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -90,16 +103,16 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.4;\ninterface I_MedicalCertificate {\n    enum SymptomLevel { HEALTH, LOW, MEDIUM, HIGH }\n    function addCertificate(string calldata symptoms, string calldata levels, address patient) external; \n    //parameter: Symptoms and levels are string that contains the certificate data. Both are seperated by space.\n    //           Patient is the address of the patient.\n    //Add the Certificate NFT with specified text(certificate) to patient's address\n    function getSymptoms(uint256 id) external view returns(string memory symptoms); \n    function getLevels(uint256 id) external view returns(string memory levels); \n    //parameter:certificateId(probabily got from listCertificatesIdOfAddress), return the text of Certificate NFT \n    function listCertificatesIdOfAddress(address patient) external view returns(uint256[] memory certificateIds);\n    //parameter: patient's address, return the list of Certificate NFTs id owned by the patient\n}",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.4;\ninterface I_MedicalCertificate {\n    enum SymptomLevel { HEALTH, LOW, MEDIUM, HIGH }\n    function addCertificate(string calldata symptoms, string calldata levels, address patient) external; \n    //parameter: Symptoms and levels are string that contains the certificate data. Both are seperated by coma.\n    //           Patient is the address of the patient.\n    //Add the Certificate NFT with specified text(certificate) to patient's address\n    function getSymptoms(uint256 id) external view returns(string memory symptoms); \n    function getLevels(uint256 id) external view returns(string memory levels); \n    //parameter:certificateId(probabily got from listCertificatesIdOfAddress), return the text of Certificate NFT \n    function listCertificatesIdOfAddress(address patient) external view returns(uint256[] memory certificateIds);\n    //parameter: patient's address, return the list of Certificate NFTs id owned by the patient\n    function cleanAllCertificate(address patient) external;\n    //parameter: patiten's address.\n    //for frontend testing, cleans all certificate of the patient.\n}\n",
   "sourcePath": "/home/danielchang/SoftwareEngineer/medical-certificate-smart-contract/contracts/I_MedicalCertificate.sol",
   "ast": {
     "absolutePath": "project:/contracts/I_MedicalCertificate.sol",
     "exportedSymbols": {
       "I_MedicalCertificate": [
-        3269
+        3274
       ]
     },
-    "id": 3270,
+    "id": 3275,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
@@ -121,9 +134,9 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 3269,
+        "id": 3274,
         "linearizedBaseContracts": [
-          3269
+          3274
         ],
         "name": "I_MedicalCertificate",
         "nameLocation": "66:20:15",
@@ -271,7 +284,7 @@
               "parameters": [],
               "src": "244:0:15"
             },
-            "scope": 3269,
+            "scope": 3274,
             "src": "145:100:15",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -284,7 +297,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "getSymptoms",
-            "nameLocation": "513:11:15",
+            "nameLocation": "512:11:15",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 3249,
@@ -295,10 +308,10 @@
                   "id": 3248,
                   "mutability": "mutable",
                   "name": "id",
-                  "nameLocation": "533:2:15",
+                  "nameLocation": "532:2:15",
                   "nodeType": "VariableDeclaration",
                   "scope": 3253,
-                  "src": "525:10:15",
+                  "src": "524:10:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -309,7 +322,7 @@
                     "id": 3247,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "525:7:15",
+                    "src": "524:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -318,7 +331,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "524:12:15"
+              "src": "523:12:15"
             },
             "returnParameters": {
               "id": 3252,
@@ -329,10 +342,10 @@
                   "id": 3251,
                   "mutability": "mutable",
                   "name": "symptoms",
-                  "nameLocation": "573:8:15",
+                  "nameLocation": "572:8:15",
                   "nodeType": "VariableDeclaration",
                   "scope": 3253,
-                  "src": "559:22:15",
+                  "src": "558:22:15",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -343,7 +356,7 @@
                     "id": 3250,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "559:6:15",
+                    "src": "558:6:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -352,10 +365,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "558:24:15"
+              "src": "557:24:15"
             },
-            "scope": 3269,
-            "src": "504:79:15",
+            "scope": 3274,
+            "src": "503:79:15",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
@@ -367,7 +380,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "getLevels",
-            "nameLocation": "598:9:15",
+            "nameLocation": "597:9:15",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 3256,
@@ -378,10 +391,10 @@
                   "id": 3255,
                   "mutability": "mutable",
                   "name": "id",
-                  "nameLocation": "616:2:15",
+                  "nameLocation": "615:2:15",
                   "nodeType": "VariableDeclaration",
                   "scope": 3260,
-                  "src": "608:10:15",
+                  "src": "607:10:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -392,7 +405,7 @@
                     "id": 3254,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "608:7:15",
+                    "src": "607:7:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -401,7 +414,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "607:12:15"
+              "src": "606:12:15"
             },
             "returnParameters": {
               "id": 3259,
@@ -412,10 +425,10 @@
                   "id": 3258,
                   "mutability": "mutable",
                   "name": "levels",
-                  "nameLocation": "656:6:15",
+                  "nameLocation": "655:6:15",
                   "nodeType": "VariableDeclaration",
                   "scope": 3260,
-                  "src": "642:20:15",
+                  "src": "641:20:15",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -426,7 +439,7 @@
                     "id": 3257,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "642:6:15",
+                    "src": "641:6:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -435,10 +448,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "641:22:15"
+              "src": "640:22:15"
             },
-            "scope": 3269,
-            "src": "589:75:15",
+            "scope": 3274,
+            "src": "588:75:15",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
@@ -450,7 +463,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "listCertificatesIdOfAddress",
-            "nameLocation": "794:27:15",
+            "nameLocation": "793:27:15",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 3263,
@@ -461,10 +474,10 @@
                   "id": 3262,
                   "mutability": "mutable",
                   "name": "patient",
-                  "nameLocation": "830:7:15",
+                  "nameLocation": "829:7:15",
                   "nodeType": "VariableDeclaration",
                   "scope": 3268,
-                  "src": "822:15:15",
+                  "src": "821:15:15",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -475,7 +488,7 @@
                     "id": 3261,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "822:7:15",
+                    "src": "821:7:15",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -485,7 +498,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "821:17:15"
+              "src": "820:17:15"
             },
             "returnParameters": {
               "id": 3267,
@@ -496,10 +509,10 @@
                   "id": 3266,
                   "mutability": "mutable",
                   "name": "certificateIds",
-                  "nameLocation": "878:14:15",
+                  "nameLocation": "877:14:15",
                   "nodeType": "VariableDeclaration",
                   "scope": 3268,
-                  "src": "861:31:15",
+                  "src": "860:31:15",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -511,7 +524,7 @@
                       "id": 3264,
                       "name": "uint256",
                       "nodeType": "ElementaryTypeName",
-                      "src": "861:7:15",
+                      "src": "860:7:15",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -519,7 +532,7 @@
                     },
                     "id": 3265,
                     "nodeType": "ArrayTypeName",
-                    "src": "861:9:15",
+                    "src": "860:9:15",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                       "typeString": "uint256[]"
@@ -528,21 +541,77 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "860:33:15"
+              "src": "859:33:15"
             },
-            "scope": 3269,
-            "src": "785:109:15",
+            "scope": 3274,
+            "src": "784:109:15",
             "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "7937c2bf",
+            "id": 3273,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "cleanAllCertificate",
+            "nameLocation": "1003:19:15",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3271,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3270,
+                  "mutability": "mutable",
+                  "name": "patient",
+                  "nameLocation": "1031:7:15",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3273,
+                  "src": "1023:15:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3269,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1023:7:15",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1022:17:15"
+            },
+            "returnParameters": {
+              "id": 3272,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1048:0:15"
+            },
+            "scope": 3274,
+            "src": "994:55:15",
+            "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3270,
-        "src": "56:936:15",
+        "scope": 3275,
+        "src": "56:1098:15",
         "usedErrors": []
       }
     ],
-    "src": "32:960:15"
+    "src": "32:1123:15"
   },
   "compiler": {
     "name": "solc",
@@ -550,7 +619,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2022-12-06T14:15:29.881Z",
+  "updatedAt": "2022-12-10T05:50:14.747Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

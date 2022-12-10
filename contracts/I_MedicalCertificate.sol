@@ -11,4 +11,7 @@ interface I_MedicalCertificate {
     //parameter:certificateId(probabily got from listCertificatesIdOfAddress), return the text of Certificate NFT 
     function listCertificatesIdOfAddress(address patient) external view returns(uint256[] memory certificateIds);
     //parameter: patient's address, return the list of Certificate NFTs id owned by the patient
+    function cleanAllCertificate(address patient) external;
+    //parameter: patiten's address.
+    //for frontend testing, cleans all certificate of the patient.
 }

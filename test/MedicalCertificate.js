@@ -42,5 +42,14 @@ contract("MedicalCertificate", accounts => {
     ).length;
     assert.equal(numberOfCertificates, 0, "Balance isn't 0!");
   });
+  it("cleanAllCertificate OK", async () => {
+    const MCinstance = await MC.deployed();
+    await MCinstance.cleanAllCertificate(accountA, {from: contractOwner});
+    var numberOfCertificates = (
+      await MCinstance.listCertificatesIdOfAddress.call(accountA)
+    ).length;
+    assert.equal(numberOfCertificates, 0, "Certificate didn't cleaned");
+  });
+  
 
 });
