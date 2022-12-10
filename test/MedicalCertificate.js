@@ -50,6 +50,23 @@ contract("MedicalCertificate", accounts => {
     ).length;
     assert.equal(numberOfCertificates, 0, "Certificate didn't cleaned");
   });
+  it("Only the owner can call addCertificate and cleanAllCertificate", async () => {
+    const MCinstance = await MC.deployed();
+    try{
+      await MCinstance.addCertificate("test","H",accountA, {from: accountA})
+      assert.equal(0, 0, "A regular user added a certificate");
+    }
+    catch(e){
+    }
+
+    try{
+      await MCinstance.cleanAllCertificate(accountA, {from: accountA})
+      assert.equal(0, 0, "A regular user cleans certificates");
+    }
+    catch(e){
+    }
+  });
+
   
 
 });

@@ -17,7 +17,7 @@ contract MedicalCertificate is ERC721, ERC721Enumerable, ERC721URIStorage, Ownab
     mapping (uint256 => string) private levelsStorage;
  
     constructor() ERC721("MedicalCertificate", "MC") {}
-    function addCertificate(string calldata symptoms, string calldata levels, address patient) external{
+    function addCertificate(string calldata symptoms, string calldata levels, address patient) external onlyOwner{
         uint256 id = _idCounter.current();
         _idCounter.increment();
         _safeMint(patient, id);
@@ -38,7 +38,7 @@ contract MedicalCertificate is ERC721, ERC721Enumerable, ERC721URIStorage, Ownab
         }
         return ret;
     }
-    function cleanAllCertificate(address patient) external{
+    function cleanAllCertificate(address patient) external onlyOwner{
         uint256 numberOfCertificates = balanceOf(patient);
         for(uint256 i=0; i<numberOfCertificates; i++){
             _burn(tokenOfOwnerByIndex(patient, 0));
