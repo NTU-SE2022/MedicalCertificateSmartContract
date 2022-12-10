@@ -18,6 +18,21 @@ contract MedicalCertificate is ERC721, ERC721Enumerable, ERC721URIStorage, Ownab
  
     constructor() ERC721("MedicalCertificate", "MC") {}
     function addCertificate(string calldata symptoms, string calldata levels, address patient) external onlyOwner{
+        bytes memory comaBytes = bytes(",");
+        bytes memory symptomsBytes = bytes(symptoms);
+        bytes memory levelsBytes = bytes(levels);
+        int256 commaCount = 0;
+        for(uint256 i=0; i<symptomsBytes.length; i++){
+            if(symptomsBytes[i] == comaBytes[0]){
+                commaCount++;
+            }
+        }
+        for(uint256 i=0; i<levelsBytes.length; i++){
+            if(levelsBytes[i] == comaBytes[0]){
+                commaCount--;
+            }
+        }
+        require(commaCount == 0, "The number of symptoms and levels are not equal.");
         uint256 id = _idCounter.current();
         _idCounter.increment();
         _safeMint(patient, id);

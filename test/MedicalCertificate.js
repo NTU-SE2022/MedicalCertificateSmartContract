@@ -16,6 +16,21 @@ contract("MedicalCertificate", accounts => {
     ).length;
     assert.equal(numberOfCertificates, 1, "Certificate didn't send to account");
   });
+  it("should report error if symptoms len neq levels len", async () => {
+    const MCinstance = await MC.deployed();
+    try{
+      await MCinstance.addCertificate("headache,aa", "HIGH", accountA, {from: contractOwner});
+      assert.equal(0, 0, "Symptom len neq levels len passed");
+    }
+    catch(e){
+    }
+    try{
+      await MCinstance.addCertificate("headache", "HIGH,A", accountA, {from: contractOwner});
+      assert.equal(0, 0, "Symptom len neq levels len passed");
+    }
+    catch(e){
+    }
+  });
 
   it("NFT should contain desired texts", async () => {
     const MCinstance = await MC.deployed();
